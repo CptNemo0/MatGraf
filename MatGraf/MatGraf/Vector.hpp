@@ -1,12 +1,10 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 #include <iostream>
 #include<cmath>
+#include<string>
+#include <sstream>
 
 class Vector
 {
@@ -16,6 +14,8 @@ private:
     float z;
 
 public:
+
+    // Public methods
     Vector();
 
     Vector(const float& new_x, const float& new_y, const float& new_z);
@@ -40,7 +40,12 @@ public:
 
     void set(const float& new_x, const float& new_y, const float& new_z);
 
+    void zero();
 
+    std::string toString() const;
+
+
+    // Static methods
     static float dot(const Vector& w, const Vector& v);
 
     static float angle(const Vector& from, const Vector& to);
@@ -51,7 +56,15 @@ public:
 
     static void noramlizeThis(Vector& w);
 
-    static Vector scale(const Vector& w, const Vector& v);
+    Vector lerp(Vector& w, Vector& v, const float& t);
+
+    void zeroThis(Vector& w);
+
+    // Operators
+    Vector operator+(const int& a);
+    Vector operator-(const int& a);
+    Vector operator*(const int& a);
+    Vector operator/(const int& a);
 
     Vector operator+(const float& a);
     Vector operator-(const float& a);
@@ -62,6 +75,7 @@ public:
     Vector operator-(const Vector& a);
     Vector operator*(const Vector& a);
     Vector operator/(const Vector& a);
+    float operator^(const Vector& a);
 };
 
 #endif // !VECTOR_HPP

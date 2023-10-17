@@ -1,18 +1,9 @@
 #include "Vector.hpp"
 
-Vector::Vector()
-{
-	this->x = 0.0f;
-	this->y = 0.0f;
-	this->z = 0.0f;
-}
+// Public methods
+Vector::Vector() : x(0.0f), y(0.0f), z(0.0f) {}
 
-Vector::Vector(const float& new_x, const float& new_y, const float& new_z)
-{
-	this->x = new_x;
-	this->y = new_y;
-	this->z = new_z;
-}
+Vector::Vector(const float& new_x, const float& new_y, const float& new_z) : x(new_x), y(new_y), z(new_z) {}
 
 float Vector::getMagnitude() const
 {
@@ -32,10 +23,10 @@ float Vector::inverseSqrtMagnitude() const
 
 void Vector::normalize()
 {
-	float invSqrtMagnitude = inverseSqrtMagnitude();
-	this->x *= invSqrtMagnitude;
-	this->y *= invSqrtMagnitude;
-	this->z *= invSqrtMagnitude;
+	float magnitude = getMagnitude();
+	this->x = x / ((magnitude));
+	this->y = y / ((magnitude));
+	this->z = z / ((magnitude));
 }
 
 float Vector::getX() const
@@ -75,31 +66,46 @@ void Vector::set(const float& new_x, const float& new_y, const float& new_z)
 	this->z = new_z;
 }
 
+void Vector::zero()
+{
+	set(0.0f, 0.0f, 0.0f);
+}
+
+std::string Vector::toString() const
+{
+	std::stringstream ss;
+	ss << "Vector: (" << x << ", " << y << ", " << z << ")";
+	return ss.str();
+}
+
+// Static methods
 float Vector::dot(const Vector& w, const Vector& v)
 {
-	return ((w.getX() + v.getX()) + (w.getY() + v.getY()) + (w.getZ() + v.getZ()));
+	return ((w.getX() * v.getX()) + (w.getY() * v.getY()) + (w.getZ() * v.getZ()));
 }
 
 float Vector::angle(const Vector& from, const Vector& to)
 {
 	float dotProduct = Vector::dot(from, to);
-	float invSqrtMagA = from.inverseSqrtMagnitude();
-	float invSqrtMagB = to.inverseSqrtMagnitude();
+	float magnitudeFrom = from.getMagnitude();
+	float magnitudeTo = to.getMagnitude();
 
-	if (invSqrtMagA != -1 || invSqrtMagB != -1)
+	if (magnitudeFrom <= 0 || magnitudeTo <= 0)
 	{
 		return -1;
 	}
 
-	double cosValue = dotProduct * invSqrtMagA * invSqrtMagA;
-	cosValue = std::max(-1.0, std::min(1.0, cosValue));
-
-	return (float) acos(cosValue) * (180.0 / M_PI);
+	return acos(dotProduct / (magnitudeFrom * magnitudeTo));
 }
 
 Vector Vector::cross(const Vector& w, const Vector& v)
 {
-	Vector retValue = Vector ( (w.getX() * v.getX()), (w.getY() * v.getY()), (w.getZ() * v.getZ()) );
+	Vector retValue = Vector();
+
+	retValue.setX(w.getY() * v.getZ() - w.getZ() * v.getY());
+	retValue.setY(w.getZ() * v.getX() - w.getX() * v.getZ());
+	retValue.setZ(w.getX() * v.getY() - w.getY() * v.getX());
+	
 	return retValue;
 }
 
@@ -120,9 +126,36 @@ void Vector::noramlizeThis(Vector& w)
 	w.z *= invSqrtMagnitude;
 }
 
-Vector Vector::scale(const Vector& w, const Vector& v)
+Vector Vector::lerp(Vector& w, Vector& v, const float& t)
 {
-	return Vector(w.getX() * v.getX(), w.getY() * v.getY(), w.getZ() * v.getZ());
+	return (w + (v - w) * t);
+}
+
+void Vector::zeroThis(Vector& w)
+{
+	w.set(0.0f, 0.0f, 0.0f);
+}
+
+// Operators
+// scalar - vector operations
+Vector Vector::operator+(const int& a)
+{
+	return Vector(this->x + a, this->y + a, this->z + a);
+}
+
+Vector Vector::operator-(const int& a)
+{
+	return Vector(this->x - a, this->y - a, this->z - a);
+}
+
+Vector Vector::operator*(const int& a)
+{
+	return Vector(this->x * a, this->y * a, this->z * a);
+}
+
+Vector Vector::operator/(const int& a)
+{
+	return Vector(this->x / a, this->y / a, this->z / a);
 }
 
 Vector Vector::operator+(const float& a)
@@ -145,6 +178,7 @@ Vector Vector::operator/(const float& a)
 	return Vector(this->x / a, this->y / a, this->z / a);
 }
 
+// component wise operations
 Vector Vector::operator+(const Vector& a)
 {
 	return Vector(this->x + a.getX(), this->y + a.getY(), this->z + a.getZ());
@@ -165,5 +199,8 @@ Vector Vector::operator/(const Vector& a)
 	return Vector(this->x / a.getX(), this->y / a.getY(), this->z / a.getZ());
 }
 
-
-
+// dot product
+float Vector::operator^(const Vector& a)
+{
+	return this->x * a.getX() + this->y * a.getY() + this->z * a.getZ();
+}
