@@ -1,51 +1,45 @@
 #include "Vector.hpp"
-
+#include "Matrix2x2.h"
+#include "Matrix3x3.h"
 using namespace std;
 
 int main()
 {
-    cout << "- - - - Vector test - - - -\n";
+	Matrix3x3 m = Matrix3x3(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f);
+	Matrix3x3 n = Matrix3x3(2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 1.0f);
 
-    Vector A = Vector();
-    Vector B = Vector(1.0f, 2.0f, 3.0f);
-    Vector C = Vector(4.0f, 5.0f, 6.0f);
+	Matrix3x3 z = Matrix3x3::matmul(m, n);
 
-    cout << "Vector A: " << A.toString() << "\n";
-    cout << "Vector B: " << B.toString() << "\n";
-    cout << "Vector C: " << C.toString() << "\n";
+	std::cout << z.toString();
 
-    cout << "A + B: " << (A + B).toString() << "\n";
-    cout << "B + A: " << (B + A).toString() << "\n";
+	std::cout<<m.toString();
 
-    cout << "A - B: " << (A - B).toString() << "\n";
-    cout << "B - A: " << (B - A).toString() << "\n";
+	m = m + 1;
 
-    cout << "C * B: " << (C * B).toString() << "\n";
-    cout << "B * C: " << (B * C).toString() << "\n";
+	std::cout << m.toString();
 
-    cout << "C / B: " << (C / B).toString() << "\n";
-    cout << "B / C: " << (B / C).toString() << "\n";
+	m = m - 1;
 
-    Vector D = Vector(0.0f, 3.0f, 0.0f);
-    Vector E = Vector(5.0f, 5.0f, 0.0f);
+	std::cout << m.toString();
 
-    cout << "Vector D: " << D.toString() << "\n";
-    cout << "Vector E: " << E.toString() << "\n";
-    cout << "Angle(D, E): " << Vector::angle(D, E) << " rad\n";
-    cout << "Angle(E, D): " << Vector::angle(E, D) << " rad\n";
+	m = m * 2;
 
-    Vector F = Vector(4.0f, 5.0f, 1.0f);
-    Vector G = Vector(4.0f, 1.0f, 3.0f);
-    Vector H = Vector::cross(F, G);
+	std::cout << m.toString();
 
-    cout << "Vector F: " << F.toString() << "\n";
-    cout << "Vector G: " << G.toString() << "\n";
-    cout << "Vector H: " << H.toString() << "\n";
+	m.transpose();
 
-    cout << "Angle(H, F): " << Vector::angle(H, F) << " rad\n";
-    cout << "Angle(H, G): " << Vector::angle(H, G) << " rad\n";
+	std::cout << m.toString();
 
-    H.normalize();
-    cout << "Normalize(H): " << H.toString() << " H magnitude: " << H.getMagnitude() << endl;
+	m.invert();
+
+	std::cout<< "invereted\n" << m.toString();
+
+	m = m + n;
+
+	std::cout << m.toString();
+
+	m = m - n;
+
+	std::cout << m.toString();
 }
 
