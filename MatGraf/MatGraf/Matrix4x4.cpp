@@ -73,7 +73,42 @@ void Matrix4x4::transpose()
 
 float Matrix4x4::det() const
 {
-	return 0.0f;
+	float return_value = 0;
+
+	Matrix3x3 m1 = Matrix3x3(elements[1][1], elements[1][2], elements[1][3],
+							 elements[2][1], elements[2][2], elements[2][3],
+							 elements[3][1], elements[3][2], elements[3][3]);
+
+	Matrix3x3 m2 = Matrix3x3(elements[0][1], elements[0][2], elements[0][3],
+							 elements[2][1], elements[2][2], elements[2][3],
+		                     elements[3][1], elements[3][2], elements[3][3]);
+
+	Matrix3x3 m3 = Matrix3x3(elements[0][1], elements[0][2], elements[0][3],
+		                     elements[1][1], elements[1][2], elements[1][3],
+						     elements[3][1], elements[3][2], elements[3][3]);
+
+	Matrix3x3 m4 = Matrix3x3(elements[0][1], elements[0][2], elements[0][3],
+						     elements[1][1], elements[1][2], elements[1][3],
+							 elements[2][1], elements[2][2], elements[2][3]);
+
+	Matrix3x3 matrices[] { m1, m2, m3, m4 };
+
+	int sign = 1;
+
+	for (int i = 0; i < 4; i++)
+	{
+		return_value += sign * elements[i][0] * matrices[i].det();
+		sign = -sign;
+	}
+	return return_value;
+}
+
+void Matrix4x4::invert()
+{
+}
+
+void Matrix4x4::adjoint()
+{
 }
 
 
