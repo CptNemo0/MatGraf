@@ -5,6 +5,13 @@
 #include <iomanip>
 #include <sstream>
 #include "Matrix3x3.h"
+#include <vector>
+#include "Vector.hpp"
+#include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif // !M_PI
+
 
 class Matrix4x4
 {
@@ -24,8 +31,13 @@ public:
 	float det() const;
 	void invert();
 	void adjoint();
-
+	Matrix3x3 minor(int row, int col);
+	void SetScale(const Vector& scaleFactor);
+	void SetTranslation(const Vector& translation);
+	static std::vector<float> RotateY(const double angle, std::vector<float>& vector);
 	static Matrix4x4 matmul(const Matrix4x4& A, const Matrix4x4& B);
+
+	static std::vector<float> matmul(const Matrix4x4& A, const std::vector<float>& vB);
 
 	std::string toString();
 
