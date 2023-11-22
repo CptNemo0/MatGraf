@@ -2,10 +2,12 @@
 #include "Matrix2x2.h"
 #include "Matrix3x3.h"
 #include "Matrix4x4.h"
+#include "Quaternion.h"
 using namespace std;
 
 int main()
 {
+	/*
 	Matrix4x4 A = Matrix4x4(1, 1, 1, -1,
 						    1, 1, -1, 1,
 		                    1, -1, 1, 1,
@@ -111,6 +113,35 @@ int main()
 	}
 	magJ = sqrtf(magJ);
 
-	cout << "Angle: " << acos(dot / (magH * magJ));
+	cout << "Angle: " << acos(dot / (magH * magJ));*/
+
+	Quaternion A = Quaternion();
+	Quaternion B = Quaternion(1, 1, 1, 1);
+	cout << "A: " << A.toString() << endl;
+	cout << "B: " << B.toString() << endl;
+	A = A + 1;
+	cout << "A = A + 1: " << A.toString() << endl;
+	A = A + B;
+	cout << "A = A + B: " << A.toString() << endl;
+
+	A = A - 1;
+	cout << "A = A - 1: " << A.toString() << endl;
+
+	A = A * 4;
+	cout << "A = A * 4: " << A.toString() << endl;
+
+	A = A - B;
+	cout << "A = A - B: " << A.toString() << endl;
+
+	Quaternion C = Quaternion(1, 2, 3, 4);
+	Quaternion D = Quaternion(5, 6, 7, 8);
+	cout << "C: " << C.toString() << endl;
+	cout << "D: " << D.toString() << endl;
+	cout << "C * D: " << (C * D).toString() << endl;
+	cout << "D * C: " << (D * C).toString() << endl;
+
+	vector<float> point{ -1, -1, -1 };
+
+	cout <<"Rotation point { -1, -1, -1 } by 270 deg along X axis produces:" << Quaternion::RotatePoint(point, 270, {1.0f, 0.0f, 0.0f}).toString() << endl;
 }
 
