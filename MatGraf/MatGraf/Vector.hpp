@@ -9,12 +9,12 @@
 class Vector
 {
 private:
+    
+
+public:
     float x;
     float y;
     float z;
-
-public:
-
     // Public methods
     Vector();
 

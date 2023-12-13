@@ -3,145 +3,50 @@
 #include "Matrix3x3.h"
 #include "Matrix4x4.h"
 #include "Quaternion.h"
+#include "Line.h"
+#include "Plane.h"
+#include "iostream"
 using namespace std;
 
 int main()
 {
-	/*
-	Matrix4x4 A = Matrix4x4(1, 1, 1, -1,
-						    1, 1, -1, 1,
-		                    1, -1, 1, 1,
-							-1, 1, 1, 1);
+	srand(time(NULL));
 
-	Matrix4x4 B = Matrix4x4(2, 2, 2, -2,
-							2, 2, -2, 2,
-							2, -2, 2, 2,
-							-2, 2, 2, 2);
-
-	Matrix4x4 C = Matrix4x4(1, 2, 3, 4,
-							5, 6, 7, 8,
-							1, 2, 3, 4,
-							5, 6, 7, 8);
-
-	cout << "A: \n" << A.toString() << "\n";
-	cout << "B: \n" << B.toString() << "\n";
+	Line line_1 = Line(Vector(3, 1, 5), Vector(-2, 5, 0));
+	Line line_2 = Line(Vector(1, -5, 3), Vector(-2, 4, 0));
 	
+	cout << "line_1: " << line_1.toString() << endl;
+	cout << "line_2: " << line_2.toString() << endl;
 
-	A = A + 5;
-	cout << "A = A + 5\n" << A.toString() << "\n";
+	Vector intersection = Line::GetIntersectionPoint(line_1, line_2);
+	cout << "Intersection point: " << intersection.toString() << endl;
 
-	A = A - 3;
-	cout << "A = A - 3\n" << A.toString() << "\n";
+	float angle = Line::Angle(line_1, line_2);
+	cout << "Angle between lines: " << angle << endl;
 
-	A = A * 2;
-	cout << "A = A * 2\n" << A.toString() << "\n";
+	Line line_3 = Line(Vector(-2, 2, -1), Vector(3, -1, 2));
+	Plane plane_1 = Plane(2, 3, 3, -8);
 
-	A = A + B;
-	cout<<"A = A + B\n" << A.toString() << "\n";
+	cout << "line_3: " << line_3.toString() << endl;
+	cout << "plane_1: " << plane_1.toString() << endl;
 
-	A = A - B;
-	cout << "A = A - B\n" << A.toString() << "\n";
-
-	A.invert();
-	cout << "A.invert()\n" << A.toString() << "\n";
-
-	A.invert();
-	cout << "A.invert()\n" << A.toString() << "\n";
-
-	cout << "C: \n" << C.toString() << "\n";
-
-	C.transpose();
-	cout<< "C.transpose()\n" << C.toString() << "\n";
-
-	C.transpose();
-	cout << "C.transpose()\n" << C.toString() << "\n";
-
-	cout << "matmul(A, C)\n" << Matrix4x4::matmul(A, C).toString() << "\n";
-	cout << "matmul(C, A)\n" << Matrix4x4::matmul(C, A).toString() << "\n";
-
-	Vector D = Vector(0.0f, 3.0f, 1.0f);
-	Matrix4x4 E = Matrix4x4(1.0f);
-	cout << D.toString() << "\n";
-	cout << "E:\n" << E.toString() << "\n";
-
-	E.SetScale(D);
-	cout << "E.SetScale(D)\n" << E.toString() << "\n";
+	cout << "Angle between line_3 and plane_1: " << Plane::AnglePlaneLine(plane_1, line_3) << endl;
 	
-	Vector F = Vector(5.0f, 4.0f, 3.0f);
-	Matrix4x4 G = Matrix4x4(1.0f);
-	cout << F.toString() << "\n";
-	cout << "G:\n" << G.toString() << "\n";
+	Plane plane_2 = Plane(2, -1, 1, -8);
+	Plane plane_3 = Plane(4, 3, 1, 14);
 
-	G.SetTranslation(F);
-	cout << "G.SetTranslation(F)\n" << G.toString() << "\n";
+	cout << "plane_2: " << plane_2.toString() << endl;
+	cout << "plane_3: " << plane_3.toString() << endl;
 
-	vector<float> H{ 1, 0, 0, 1 };
-	cout << "H: ";
-	for (int i = 0; i < H.size(); i++)
-	{
-		cout << H[i] << " ";
-	}
-	cout << "\n";
-
-	
-	vector<float> J = Matrix4x4::RotateY(90.0, H);
-	cout << "Matrix4x4::RotateY(90.0, H)" << "\n";
-	cout << "H: ";
-	for (int i = 0; i < J.size(); i++)
-	{
-		cout << J[i] << " ";
-	}
-	cout << "\n";
-
-	float dot = 0.0f;
-	for (int i = 0; i < 4; i++)
-	{
-		dot += J[i] * H[i];
-	}
-
-	float magH = 0.0f;
-	for (int i = 0; i < 4; i++)
-	{
-		magH += H[i] * H[i];
-	}
-	magH = sqrtf(magH);
-
-	float magJ = 0.0f;
-	for (int i = 0; i < 4; i++)
-	{
-		magJ += J[i] * J[i];
-	}
-	magJ = sqrtf(magJ);
-
-	cout << "Angle: " << acos(dot / (magH * magJ));*/
-
-	Quaternion A = Quaternion();
-	Quaternion B = Quaternion(1, 1, 1, 1);
-	cout << "A: " << A.toString() << endl;
-	cout << "B: " << B.toString() << endl;
-	A = A + 1;
-	cout << "A = A + 1: " << A.toString() << endl;
-	A = A + B;
-	cout << "A = A + B: " << A.toString() << endl;
-
-	A = A - 1;
-	cout << "A = A - 1: " << A.toString() << endl;
-
-	A = A * 4;
-	cout << "A = A * 4: " << A.toString() << endl;
-
-	A = A - B;
-	cout << "A = A - B: " << A.toString() << endl;
-
-	Quaternion C = Quaternion(1, 2, 3, 4);
-	Quaternion D = Quaternion(5, 6, 7, 8);
-	cout << "C: " << C.toString() << endl;
-	cout << "D: " << D.toString() << endl;
-	cout << "C * D: " << (C * D).toString() << endl;
-	cout << "D * C: " << (D * C).toString() << endl;
-
-	vector<float> point{ -1, -1, -1 };
-
-	cout <<"Rotation point { -1, -1, -1 } by 270 deg along X axis produces:" << Quaternion::RotatePoint(point, 270, {1.0f, 0.0f, 0.0f}).toString() << endl;
+	Line intersection_line = Plane::IntersectionLine(plane_2, plane_3);
+	cout << "Intersection line: " << intersection_line.toString() << endl;
+	cout << "Angle between plane_2 and plane_3: " << Plane::Angle(plane_2, plane_3) << endl;
+		
+	Line line_4 = Line(Vector(5, 5, 4), Vector(10, 10, 6), true);
+	Line line_5 = Line(Vector(5, 5, 5), Vector(10, 10, 3), true);
+	cout << "line_4: " << line_4.toString() << endl;
+	cout << "line_5: " << line_5.toString() << endl;
+	Vector intersection_2 = Line::GetIntersectionPoint(line_4, line_5);
+	cout << "Intersection point: " << intersection_2.toString() << endl;
 }
 
