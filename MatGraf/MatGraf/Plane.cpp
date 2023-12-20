@@ -13,7 +13,7 @@ Vector Plane::GetNormal()
 
 Vector Plane::SamplePoint()
 {
-    return Vector(A, B, C) + rand() % 100;
+    return Vector(0.0f, 0.0f, - 1.0f * D / C);
 }
 
 Line Plane::IntersectionLine(Plane plane_1, Plane plane_2)
@@ -23,27 +23,19 @@ Line Plane::IntersectionLine(Plane plane_1, Plane plane_2)
 
     Vector cross_product = Vector::cross(n_1, n_2);
 
-    float x, y, z;
+    Vector Q_1 = plane_1.SamplePoint();
+    Vector Q_2 = plane_2.SamplePoint();
 
-    z = 0.0f;
-
-    Vector equation_1 = Vector(plane_1.A, plane_1.B, plane_1.D);
-    Vector equation_2 = Vector(plane_2.A, plane_2.B, plane_2.D);
-
-    if (equation_1.x != equation_2.x)
+    float bot = n_2.x - (n_1.x * n_2.y / n_1.y);
+    float x, y;
+    if (n_1.y != 0 && bot != 0)
     {
-        float d = equation_1.x / equation_2.x;
-        equation_2 = equation_2 * d;
+        x = ( (Vector::dot(n_2, Q_2) -  ( ( n_2.y * (Vector::dot(n_1, Q_1) ) / n_1.y)  ))/ bot);
+        y = ( (Vector::dot(n_1, Q_1) - n_1.x) / n_1.y );
     }
 
-    Vector equation_3 = equation_1 - equation_2;
 
-    y = equation_3.z / equation_3.y;
-    x = equation_1.z - y;
-
-    Vector intersection_point = Vector(x, y, z);
-
-    return Line(intersection_point, cross_product);
+    return Line(Vector(x, y, 0.0f), cross_product);
 }
 
 float Plane::AnglePlaneLine(Plane plane, Line line)
