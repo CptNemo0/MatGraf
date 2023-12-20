@@ -48,5 +48,17 @@ int main()
 	cout << "line_5: " << line_5.toString() << endl;
 	Vector intersection_2 = Line::GetIntersectionPoint(line_4, line_5);
 	cout << "Intersection point: " << intersection_2.toString() << endl;
-}
+
+	Line line_6 = Line(Vector(3, -1, -2), Vector(5, 3, -4), true);
+	cout << "line)6" << line_6.toString() << endl;
+
+	auto intersections = Line::IntersectionSphere(line_6, Vector(0.0f, 0.0f, 0.0f), sqrtf(26));
+	for (Vector var : intersections)
+	{
+		cout << "Intersection point: " << var.toString() << endl;
+	}
+
+
+
+}//(3, -1, -2) + t*(2, 4, -2)
 

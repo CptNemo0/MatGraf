@@ -4,6 +4,7 @@
 #include<string>
 #include <sstream>
 #include "Vector.hpp"
+#include <vector>
 
 class Line
 {
@@ -20,4 +21,5 @@ public:
 	static Vector GetIntersectionPoint(Line line_1, Line line_2);
 	static float Angle(Line line_1, Line line_2);
 	std::string toString();
+	static std::vector<Vector> IntersectionSphere(Line l, Vector center, float radius);
 };

@@ -34,6 +34,7 @@ Line Plane::IntersectionLine(Plane plane_1, Plane plane_2)
         y = ( (Vector::dot(n_1, Q_1) - n_1.x) / n_1.y );
     }
 
+    //(1, -6, 0) + t*(-0.320256, 0.160128, 0.800641)
 
     return Line(Vector(x, y, 0.0f), cross_product);
 }

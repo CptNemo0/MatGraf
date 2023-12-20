@@ -85,6 +85,24 @@ std::string Line::toString()
 	return ss.str();
 }
 
+std::vector<Vector> Line::IntersectionSphere(Line l, Vector center, float radius)
+{
+	std::vector<Vector> intersections = std::vector<Vector>();
+	Vector old_v = l.v;
+	l.v.normalize();
+	Vector normalized_v = l.v;
+	l.v = old_v;
+
+	Vector w = center - l.p;
+
+	float L = Vector::dot(w, normalized_v);
+	float e_mag = l.p.getMagnitude();
+
+	Vector P = l.p + (normalized_v * (L + e_mag));
+
+	intersections.push_back(P);
+	return intersections;
+}
 
 
 
