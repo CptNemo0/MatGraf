@@ -140,6 +140,8 @@ void Matrix3x3::invert()
 }
 
 
+
+
 Matrix3x3 Matrix3x3::matmul(const Matrix3x3& A, const Matrix3x3& B)
 {
 	Matrix3x3 return_value = Matrix3x3();

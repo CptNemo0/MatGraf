@@ -17,7 +17,7 @@
 mono_crash.*
 
 .docx
-
+.zip
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

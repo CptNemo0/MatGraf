@@ -60,6 +60,24 @@ public:
 
     void zeroThis(Vector& w);
 
+    static void RotateX(Vector& v, float angle)
+    {
+        v.y = v.y * cosf(3.1415f * angle / 180) - v.z * sinf(3.1415f * angle / 180);
+        v.z = v.y * sinf(3.1415f * angle / 180) + v.z * cosf(3.1415f * angle / 180);
+    }
+
+    static void RotateY(Vector& v, float angle)
+    {
+        v.x = v.x * cosf(3.1415f * angle / 180) + v.z * sinf(3.1415f * angle / 180);
+        v.z = -1.0f * v.x * sinf(3.1415f * angle / 180) + v.z * cosf(3.1415f * angle / 180);
+    }
+
+    static void RotateZ(Vector& v, float angle)
+    {
+        v.x = v.x * cosf(3.1415f * angle / 180) - v.y * sinf(3.1415f * angle / 180);
+        v.y = v.x * sinf(3.1415f * angle / 180) + v.y * cosf(3.1415f * angle / 180);
+    }
+
     // Operators
     Vector operator+(const int& a);
     Vector operator-(const int& a);
