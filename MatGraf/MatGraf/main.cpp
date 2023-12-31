@@ -22,7 +22,7 @@ const int GRID_RESOLUTION = 60;
 
 const int CAMERA_Z = -50;
 
-const int ROTATION_INC = 5;
+int ROTATION_INC = 1;
 const float SCALE_INC = 1.25f;
 
 
@@ -71,11 +71,11 @@ bool is_in_quad(Point point, Face polygon)
 
 		auto d = a * point.x + b * point.y + c;
 
-		if (d <= 0)
+		if (d < 0)
 		{
 			pos++;
 		}
-		else
+		else if (d > 0)
 		{
 			neg++;
 		}
@@ -122,20 +122,21 @@ int main()
 	Vector br_b = Vector(15.0f, -15.0f, 15.0f);
 	Vector tr_b = Vector(15.0f, 15.0f, 15.0f);
 
-	vector<Vector> vertices {tl_f, tr_f, bl_f, br_f, tl_b, tr_b, bl_b, br_b};
+	//Vector vertices[8]{ tl_f, tr_f, bl_f, br_f, tl_b, tr_b, bl_b, br_b };
+	//vector<Vector> vertices {tl_f, tr_f, bl_f, br_f, tl_b, tr_b, bl_b, br_b};
 
 	while (true)
 	{
-		
-
 		//cout << tl_f.toString() << endl;
 		Face front_face = Face(tl_f, bl_f, br_f, tr_f);
+		Face right_face = Face(tr_f, br_f, br_b, tr_b);
+
 		Face back_face = Face(tl_b, bl_b, br_b, tr_b);
 
 		Face top_face = Face(tl_b, tl_f, tr_f, tr_b);
 		Face bot_face = Face(bl_b, bl_f, br_f, br_b);
 
-		Face right_face = Face(tr_f, br_f, br_b, tr_f);
+		
 		Face left_face = Face(tl_f, bl_f, bl_b, tl_f);
 
 		vector<Face> faces{ front_face, back_face, top_face, bot_face, right_face, left_face };
@@ -166,8 +167,39 @@ int main()
 		cout << output << endl;
 		std::this_thread::sleep_for(timespan);
 
+		Vector::RotateY(tl_f, ROTATION_INC);
+		Vector::RotateY(bl_f, ROTATION_INC);
+		Vector::RotateY(br_f, ROTATION_INC);
+		Vector::RotateY(tr_f, ROTATION_INC);
 
-		char a;
+		Vector::RotateY(tl_b, ROTATION_INC);
+		Vector::RotateY(bl_b, ROTATION_INC);
+		Vector::RotateY(br_b, ROTATION_INC);
+		Vector::RotateY(tr_b, ROTATION_INC);
+
+		Vector::RotateX(tl_f, ROTATION_INC);
+		Vector::RotateX(bl_f, ROTATION_INC);
+		Vector::RotateX(br_f, ROTATION_INC);
+		Vector::RotateX(tr_f, ROTATION_INC);
+
+		Vector::RotateX(tl_b, ROTATION_INC);
+		Vector::RotateX(bl_b, ROTATION_INC);
+		Vector::RotateX(br_b, ROTATION_INC);
+		Vector::RotateX(tr_b, ROTATION_INC);
+
+		Vector::RotateZ(tl_f, ROTATION_INC);
+		Vector::RotateZ(bl_f, ROTATION_INC);
+		Vector::RotateZ(br_f, ROTATION_INC);
+		Vector::RotateZ(tr_f, ROTATION_INC);
+
+		Vector::RotateZ(tl_b, ROTATION_INC);
+		Vector::RotateZ(bl_b, ROTATION_INC);
+		Vector::RotateZ(br_b, ROTATION_INC);
+		Vector::RotateZ(tr_b, ROTATION_INC);
+
+
+		
+		/*char a;
 
 		cin >> a;
 
@@ -178,6 +210,7 @@ int main()
 			Vector::RotateY(bl_f, -ROTATION_INC);
 			Vector::RotateY(br_f, -ROTATION_INC);
 			Vector::RotateY(tr_f, -ROTATION_INC);
+
 			Vector::RotateY(tl_b, -ROTATION_INC);
 			Vector::RotateY(bl_b, -ROTATION_INC);
 			Vector::RotateY(br_b, -ROTATION_INC);
@@ -223,30 +256,7 @@ int main()
 			Vector::RotateX(tr_b, -ROTATION_INC);
 			continue;
 			break;
-
-		case 'z':
-			tl_f = tl_f * SCALE_INC;
-			bl_f = bl_f * SCALE_INC;
-			br_f = br_f * SCALE_INC;
-			tl_f = tl_f * SCALE_INC;
-			tl_b = tl_b * SCALE_INC;
-			bl_b = bl_b * SCALE_INC;
-			br_b = br_b * SCALE_INC;
-			tr_b = tr_b * SCALE_INC;
-			continue;
-			break;
-		case 'c':
-			tl_f = tl_f / SCALE_INC;
-			bl_f = bl_f / SCALE_INC;
-			br_f = br_f / SCALE_INC;
-			tl_f = tl_f / SCALE_INC;
-			tl_b = tl_b / SCALE_INC;
-			bl_b = bl_b / SCALE_INC;
-			br_b = br_b / SCALE_INC;
-			tr_b = tr_b / SCALE_INC;
-			continue;
-			break;
-		}
+		}*/
 	}
 }
 

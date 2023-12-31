@@ -60,6 +60,12 @@ public:
 
     void zeroThis(Vector& w);
 
+    void RotateXThis(float angle)
+    {
+        this->y = y * cosf(3.1415f * angle / 180) - z * sinf(3.1415f * angle / 180);
+        this->z = y * sinf(3.1415f * angle / 180) + z * cosf(3.1415f * angle / 180);
+    }
+
     static void RotateX(Vector& v, float angle)
     {
         v.y = v.y * cosf(3.1415f * angle / 180) - v.z * sinf(3.1415f * angle / 180);
