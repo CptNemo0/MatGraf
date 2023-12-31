@@ -18,7 +18,7 @@ constexpr int X_OFFSET = RESOLUTION_X / 2;
 constexpr int Y_OFFSET = RESOLUTION_Y / 2;
 constexpr int Z_OFFSET = RESOLUTION_Z / 2;
 
-const int GRID_RESOLUTION = 60;
+const int GRID_RESOLUTION = 100;
 
 const int CAMERA_Z = -50;
 
@@ -167,7 +167,7 @@ int main()
 		cout << output << endl;
 		std::this_thread::sleep_for(timespan);
 
-		Vector::RotateY(tl_f, ROTATION_INC);
+	/*	Vector::RotateY(tl_f, ROTATION_INC);
 		Vector::RotateY(bl_f, ROTATION_INC);
 		Vector::RotateY(br_f, ROTATION_INC);
 		Vector::RotateY(tr_f, ROTATION_INC);
@@ -195,11 +195,11 @@ int main()
 		Vector::RotateZ(tl_b, ROTATION_INC);
 		Vector::RotateZ(bl_b, ROTATION_INC);
 		Vector::RotateZ(br_b, ROTATION_INC);
-		Vector::RotateZ(tr_b, ROTATION_INC);
+		Vector::RotateZ(tr_b, ROTATION_INC);*/
 
 
 		
-		/*char a;
+		char a;
 
 		cin >> a;
 
@@ -256,7 +256,31 @@ int main()
 			Vector::RotateX(tr_b, -ROTATION_INC);
 			continue;
 			break;
-		}*/
+
+		case 'z':
+			tl_f = tl_f * SCALE_INC;
+			bl_f = bl_f * SCALE_INC;
+			br_f = br_f * SCALE_INC;
+			tr_f = tr_f * SCALE_INC;
+
+			tl_b = tl_b * SCALE_INC;
+			bl_b = bl_b * SCALE_INC;
+			br_b = br_b * SCALE_INC;
+			tr_b = tr_b * SCALE_INC;
+			break;
+
+		case 'c':
+			tl_f = tl_f / SCALE_INC;
+			bl_f = bl_f / SCALE_INC;
+			br_f = br_f / SCALE_INC;
+			tr_f = tr_f / SCALE_INC;
+
+			tl_b = tl_b / SCALE_INC;
+			bl_b = bl_b / SCALE_INC;
+			br_b = br_b / SCALE_INC;
+			tr_b = tr_b / SCALE_INC;
+			break;
+		}
 	}
 }
 
