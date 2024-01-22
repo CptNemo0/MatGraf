@@ -18,6 +18,7 @@ public:
 	static Line IntersectionLine(Plane plane_1, Plane plane_2);
 	static float AnglePlaneLine(Plane plane, Line line);
 	static float Angle(Plane plane_1, Plane plane_2);
+	static Vector IntersectionWithLine(Plane plane, Line line);
 	std::string toString();
 };
 

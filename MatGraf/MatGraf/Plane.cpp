@@ -70,11 +70,25 @@ float Plane::Angle(Plane plane_1, Plane plane_2)
     return fabs(angle);
 }
 
+Vector Plane::IntersectionWithLine(Plane plane, Line line)
+{
+    float t = 0.0f;
+
+    Vector q = plane.SamplePoint();
+    Vector p = line.p;
+    Vector v = line.v;
+    Vector n = plane.GetNormal();
+   
+    t = Vector::dot(n * -1.0f, (p - q)) / Vector::dot(n, v);
+
+    Vector return_value = p + v * t;
+    return return_value;
+}
+
 std::string Plane::toString()
 {
     std::stringstream ss;
     ss << "Plane: A: " << A << ", B: " << B << ", C:" << C <<", D:"<<D;
     return ss.str();
 }
-
 
